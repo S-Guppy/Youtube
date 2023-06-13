@@ -11,7 +11,7 @@ def home():
 def all_channels():
     conn=sqlite3.connect("channel.db")
     cur=conn.cursor()
-    cur.execute("SELECT * FROM Channel")
+    cur.execute("SELECT id, name, pfp FROM Channel")
     results=cur.fetchall()
     return render_template("all_channels.html",results=results)
 
@@ -46,11 +46,10 @@ def channel(id):
     cur.execute("SELECT * FROM Channel WHERE id=?",(id,))
     channel=cur.fetchone()
     cur.execute("SELECT name FROM Member WHERE id IN(SELECT mid FROM ChannelMember WHERE cid=(id=?))",(id,))
-    channel=cur.fetchone()
+    channel_member=cur.fetchone()
     cur.execute("SELECT handle, pfp FROM Social WHERE id IN(SELECT sid FROM ChannelSocial WHERE cid=(id=?))",(id,))
-    channel=cur.fetchall()
-    return render_template('channel.html', channel=channel) #pizza_base=pizza_base, pizza_topping=pizza_topping)
-    #return render_template('pizza.html', id=id)
+    channel_social=cur.fetchall()
+    return render_template('channel.html', channel=channel, channel_member=channel_member, channel_social=channel_social)
 
 if __name__ == "__main__":
     app.run(debug=True)
