@@ -8,6 +8,14 @@
 {{channel[5]}}
 {{channel[8]}}
 {# This is how u comment #}
+{% for item in channel_member %}
+    {{item[0]}},&nbsp;
+{% endfor %}
+{% for item in channel_social %}
+    {{item[0]}},&nbsp;
+{% endfor %}
+{#{channel_social[0]}#}
+{#{channel_social[1]}#}
 <img src="{{channel[7]}}"/>
 
 {% endblock %}

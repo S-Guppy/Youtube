@@ -45,11 +45,14 @@ def channel(id):
     cur=conn.cursor()
     cur.execute("SELECT * FROM Channel WHERE id=?",(id,))
     channel=cur.fetchone()
-    cur.execute("SELECT name FROM Member WHERE id IN(SELECT mid FROM ChannelMember WHERE cid=(id=?))",(id,))
-    channel_member=cur.fetchone()
-    cur.execute("SELECT handle, pfp FROM Social WHERE id IN(SELECT sid FROM ChannelSocial WHERE cid=(id=?))",(id,))
+    cur.execute("SELECT name FROM Member WHERE id IN (SELECT mid FROM ChannelMember WHERE cid=?)", (id,))
+    channel_member=cur.fetchall()
+    cur.execute("SELECT handle, pfp FROM Social WHERE id IN (SELECT sid FROM ChannelSocial WHERE cid=?)",(id,))
     channel_social=cur.fetchall()
-    return render_template('channel.html', channel=channel, channel_member=channel_member, channel_social=channel_social)
+    #cur.execute("SELECT name, pfp FROM Channel WHERE id IN(SELECT primarychannel_id FROM Channel WHERE (id=?))",(id,))#
+    #channel_2=cur.fetchall()#
+    #print(channel_2)#
+    return render_template('channel.html', channel=channel, channel_member=channel_member, channel_social=channel_social) #channel_2=channel_2)#
 
 if __name__ == "__main__":
     app.run(debug=True)
