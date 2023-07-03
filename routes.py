@@ -19,7 +19,7 @@ def all_channels():
 def all_members():
     conn=sqlite3.connect("channel.db")
     cur=conn.cursor()
-    cur.execute("SELECT * FROM Member")
+    cur.execute("SELECT id, name, image FROM Member")
     results=cur.fetchall()
     return render_template("all_members.html",results=results)
 
