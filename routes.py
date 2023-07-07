@@ -53,6 +53,16 @@ def channel(id):
     channel_2=cur.fetchone()
     return render_template('channel.html', channel=channel, channel_member=channel_member, channel_social=channel_social, channel_2=channel_2)
 
+@app.route('/member/<int:id>')
+def member(id):
+    conn=sqlite3.connect("channel.db")
+    cur=conn.cursor()
+    cur.execute("SELECT * FROM Member where id=?",(id,))
+    member=cur.fetchone()
+    cur.execute("SELECT name, pfp FROM Channel WHERE id IN (SELECT cid FROM ChannelMember WHERE mid=?)",(id,))
+    member_channel=cur.fetchall()
+    return render_template('member.html', member=member, member_channel=member_channel)
+
 if __name__ == "__main__":
     app.run(debug=True)
 

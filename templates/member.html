@@ -1,4 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
+{{member[1]}}
+{{member[2]}}
+<img src="{{member[3]}}"/>
+
+{% for item in member_channel %}
+    {{item[0]}},&nbsp;
+{% endfor %}
+{% for item in member_channel %}
+    <img src="{{item[1]}}"/>
+{% endfor %}
 
 {% endblock %}
