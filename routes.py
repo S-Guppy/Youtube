@@ -49,9 +49,19 @@ def channel(id):
     channel_member=cur.fetchall()
     cur.execute("SELECT handle, pfp FROM Social WHERE id IN (SELECT sid FROM ChannelSocial WHERE cid=?)",(id,))
     channel_social=cur.fetchall()
+    cur.execute("SELECT link FROM ChannelSocial WHERE sid = 1 and cid=?" ,(id,))
+    channel_insta=cur.fetchone()
+    cur.execute("SELECT link FROM ChannelSocial WHERE sid = 2 and cid=?",(id,))
+    channel_twitter=cur.fetchone()
+    cur.execute("SELECT link FROM ChannelSocial WHERE sid = 3 and cid=?",(id,))
+    channel_tiktok=cur.fetchone()
+    cur.execute("SELECT link FROM ChannelSocial WHERE sid = 4 and cid=?",(id,))
+    channel_facebook=cur.fetchone()
+    cur.execute("SELECT link FROM ChannelSocial WHERE sid is null and cid=?",(id,))
+    channel_nope=cur.fetchone()
     cur.execute("SELECT name, pfp FROM Channel WHERE id IN (SELECT primarychannel_id FROM Channel WHERE id=?)", (id,))
     channel_2=cur.fetchone()
-    return render_template('channel.html', channel=channel, channel_member=channel_member, channel_social=channel_social, channel_2=channel_2)
+    return render_template('channel.html', channel=channel, channel_member=channel_member, channel_social=channel_social, channel_2=channel_2, channel_insta=channel_insta, channel_twitter=channel_twitter, channel_tiktok=channel_tiktok, channel_facebook=channel_facebook, channel_nope=channel_nope)
 
 @app.route('/member/<int:id>')
 def member(id):
@@ -62,6 +72,16 @@ def member(id):
     cur.execute("SELECT name, pfp FROM Channel WHERE id IN (SELECT cid FROM ChannelMember WHERE mid=?)",(id,))
     member_channel=cur.fetchall()
     return render_template('member.html', member=member, member_channel=member_channel)
+
+@app.route('/genre/<int:id>')
+def genre(id):
+    conn=sqlite3.connect("channel.db")
+    cur=conn.cursor()
+    cur.execute("SELECT * FROM Genre where id=?",(id,))
+    genre=cur.fetchone()
+    cur.execute("SELECT name, pfp FROM Channel WHERE id IN (SELECT cid FROM ChannelGenre WHERE gid=?)",(id,))
+    genre_channel=cur.fetchall()
+    return render_template('genre.html', genre=genre, genre_channel=genre_channel)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+{{genre[1]}}
+<img src="{{genre[2]}}"/>
+
+{% for item in genre_channel %}
+    {{item[0]}},&nbsp;
+    <img src="{{item[1]}}"/>
+{% endfor %}
+
+{% endblock %}

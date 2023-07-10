@@ -1,24 +1,27 @@
 {% extends "layout.html" %}
 {% block content %}
 
-
 {{channel[1]}}
 {{channel[2]}}
 {{channel[3]}}
 {{channel[4]}}
 {{channel[5]}}
+
+<a href="{{channel[6]}}" target="_blank"> Merch</a>
+
 {# This is how u comment #}
 {% for item in channel_member %}
     {{item[0]}},&nbsp;
 {% endfor %}
-{% for item in channel_social %}
-    {{item[0]}},&nbsp;
-{% endfor %}
-{#{channel_social[0]}#}
-{#{channel_social[1]}#}
+
 <img src="{{channel[7]}}"/>
 {{channel_2[0]}}
 <img src="{{channel_2[1]}}"/>
 
+<a href="{{channel_insta[0]}}" target="_blank"> Instagram</a>
+<a href="{{channel_twitter[0]}}" target="_blank"> Twitter</a>
+<a href="{{channel_tiktok[0]}}" target="_blank"> Tiktok</a>
+<a href="{{channel_facebook[0]}}" target="_blank"> Facebook</a>
 
+{{channel_nope[0]}}
 {% endblock %}
