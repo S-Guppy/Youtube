@@ -63,6 +63,8 @@ def channel(id):
     channel_2=cur.fetchone()
     return render_template('channel.html', channel=channel, channel_member=channel_member, channel_social=channel_social, channel_2=channel_2, channel_insta=channel_insta, channel_twitter=channel_twitter, channel_tiktok=channel_tiktok, channel_facebook=channel_facebook, channel_nope=channel_nope)
 
+
+
 @app.route('/member/<int:id>')
 def member(id):
     conn=sqlite3.connect("channel.db")
