@@ -51,16 +51,11 @@ def channel(id):
     channel_member=cur.fetchall()
     cur.execute("SELECT link FROM ChannelSocial WHERE sid IS NOT NULL and cid=?" ,(id,))
     channel_insta=cur.fetchall()
-
-    cur.execute("SELECT link FROM ChannelSocial WHERE sid = 2 and cid=?",(id,))
-    channel_twitter=cur.fetchone()
-    cur.execute("SELECT link FROM ChannelSocial WHERE sid = 3 and cid=?",(id,))
-    channel_tiktok=cur.fetchone()
-    cur.execute("SELECT link FROM ChannelSocial WHERE sid = 4 and cid=?",(id,))
-    channel_facebook=cur.fetchone()
+    cur.execute("SELECT handle FROM Social WHERE id IN (SELECT sid FROM ChannelSocial WHERE cid=?)", (id,))
+    social_name=cur.fetchall()
     cur.execute("SELECT name, pfp FROM Channel WHERE id IN (SELECT primarychannel_id FROM Channel WHERE id=?)", (id,))
     channel_2=cur.fetchone()
-    return render_template('channel.html', channel=channel, second_channel=second_channel, channel_member=channel_member, channel_2=channel_2, channel_insta=channel_insta, channel_twitter=channel_twitter, channel_tiktok=channel_tiktok, channel_facebook=channel_facebook)
+    return render_template('channel.html', channel=channel, second_channel=second_channel, channel_member=channel_member, channel_2=channel_2, channel_insta=channel_insta, social_name=social_name)
 
 @app.route('/member/<int:id>')
 def member(id):
