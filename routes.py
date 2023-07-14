@@ -43,27 +43,24 @@ def all_genres():
 def channel(id):
     conn=sqlite3.connect("channel.db")
     cur=conn.cursor()
-    cur.execute("SELECT * FROM Channel WHERE id=?",(id,))
+    cur.execute("SELECT * FROM Channel WHERE id=? and total_video IS NOT NULL",(id,))
     channel=cur.fetchone()
+    cur.execute("SELECT name, subscriber, pfp FROM Channel WHERE id=? and total_video IS NULL", (id,))
+    second_channel=cur.fetchone()
     cur.execute("SELECT name FROM Member WHERE id IN (SELECT mid FROM ChannelMember WHERE cid=?)", (id,))
     channel_member=cur.fetchall()
-    cur.execute("SELECT handle, pfp FROM Social WHERE id IN (SELECT sid FROM ChannelSocial WHERE cid=?)",(id,))
-    channel_social=cur.fetchall()
-    cur.execute("SELECT link FROM ChannelSocial WHERE sid = 1 and cid=?" ,(id,))
-    channel_insta=cur.fetchone()
+    cur.execute("SELECT link FROM ChannelSocial WHERE sid IS NOT NULL and cid=?" ,(id,))
+    channel_insta=cur.fetchall()
+
     cur.execute("SELECT link FROM ChannelSocial WHERE sid = 2 and cid=?",(id,))
     channel_twitter=cur.fetchone()
     cur.execute("SELECT link FROM ChannelSocial WHERE sid = 3 and cid=?",(id,))
     channel_tiktok=cur.fetchone()
     cur.execute("SELECT link FROM ChannelSocial WHERE sid = 4 and cid=?",(id,))
     channel_facebook=cur.fetchone()
-    cur.execute("SELECT link FROM ChannelSocial WHERE sid is null and cid=?",(id,))
-    channel_nope=cur.fetchone()
     cur.execute("SELECT name, pfp FROM Channel WHERE id IN (SELECT primarychannel_id FROM Channel WHERE id=?)", (id,))
     channel_2=cur.fetchone()
-    return render_template('channel.html', channel=channel, channel_member=channel_member, channel_social=channel_social, channel_2=channel_2, channel_insta=channel_insta, channel_twitter=channel_twitter, channel_tiktok=channel_tiktok, channel_facebook=channel_facebook, channel_nope=channel_nope)
-
-
+    return render_template('channel.html', channel=channel, second_channel=second_channel, channel_member=channel_member, channel_2=channel_2, channel_insta=channel_insta, channel_twitter=channel_twitter, channel_tiktok=channel_tiktok, channel_facebook=channel_facebook)
 
 @app.route('/member/<int:id>')
 def member(id):
@@ -84,6 +81,18 @@ def genre(id):
     cur.execute("SELECT name, pfp FROM Channel WHERE id IN (SELECT cid FROM ChannelGenre WHERE gid=?)",(id,))
     genre_channel=cur.fetchall()
     return render_template('genre.html', genre=genre, genre_channel=genre_channel)
+
+@app.route('/social/<int:id>')
+def social(id):
+    conn=sqlite3.connect("channel.db")
+    cur=conn.cursor()
+    cur.execute("SELECT * FROM Social where id=?",(id,))
+    social=cur.fetchone()
+    cur.execute("SELECT name, pfp FROM Channel WHERE id IN (SELECT cid FROM ChannelSocial WHERE sid=?)",(id,))
+    social_channel=cur.fetchall()
+    cur.execute("SELECT link FROM ChannelSocial WHERE sid=?", (id,))
+    social_link=cur.fetchone()
+    return render_template('social.html', social=social, social_channel=social_channel, social_link=social_link)
 
 if __name__ == "__main__":
     app.run(debug=True)

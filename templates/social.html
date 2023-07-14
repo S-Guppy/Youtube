@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+{{social[1]}}
+<img src="{{social[2]}}"/>
+
+{% for item in social_channel %}
+    <img src="{{item[1]}}"/>
+    <a href="{{social_link[0]}}" target="_blank"> {{item[0]}}</a>
+{% endfor %}
+
+{% endblock %}
