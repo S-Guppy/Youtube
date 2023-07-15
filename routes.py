@@ -53,7 +53,7 @@ def channel(id):
     channel_insta=cur.fetchall()
     cur.execute("SELECT handle FROM Social WHERE id IN (SELECT sid FROM ChannelSocial WHERE cid=?)", (id,))
     social_name=cur.fetchall()
-    cur.execute("SELECT name, pfp FROM Channel WHERE id IN (SELECT primarychannel_id FROM Channel WHERE id=?)", (id,))
+    cur.execute("SELECT name, pfp FROM Channel WHERE id IN (SELECT primarychannel_id FROM Channel WHERE id=? and id IS NOT primarychannel_id)", (id,))
     channel_2=cur.fetchone()
     return render_template('channel.html', channel=channel, second_channel=second_channel, channel_member=channel_member, channel_2=channel_2, channel_insta=channel_insta, social_name=social_name)
 
@@ -65,7 +65,11 @@ def member(id):
     member=cur.fetchone()
     cur.execute("SELECT name, pfp FROM Channel WHERE id IN (SELECT cid FROM ChannelMember WHERE mid=?)",(id,))
     member_channel=cur.fetchall()
-    return render_template('member.html', member=member, member_channel=member_channel)
+    cur.execute("SELECT link FROM SocialMember WHERE sid IS NOT NULL and mid=?" ,(id,))
+    social_link=cur.fetchall()
+    cur.execute("SELECT handle FROM Social WHERE id IN (SELECT sid FROM SocialMember WHERE mid=?)", (id,))
+    member_social=cur.fetchall()
+    return render_template('member.html', member=member, member_channel=member_channel, member_social=member_social, social_link=social_link)
 
 @app.route('/genre/<int:id>')
 def genre(id):

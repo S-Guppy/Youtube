@@ -23,8 +23,12 @@
 {{channel_2[0]}}
 <img src="{{channel_2[1]}}"/>
 
-{% for item in channel_insta, for i in social_name %}
-    <a href="{{item[0]}}" target="_blank">{{i[0]}}</a>
+
+{% for item in channel_insta %}
+    <a href="{{item[0]}}" target="_blank">{% for thing in social_name %}
+        {{thing[0]}}
+        {% endfor %}
+    </a>
 {% endfor %}
 
 {% endblock %}
