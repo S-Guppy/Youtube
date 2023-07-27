@@ -3,6 +3,7 @@ import sqlite3
 
 app = Flask(__name__)
 
+# making routes #
 @app.route('/')
 def home():
     return render_template("home.html", title="channel")
@@ -53,9 +54,11 @@ def channel(id):
     channel_insta=cur.fetchall()
     cur.execute("SELECT handle FROM Social WHERE id IN (SELECT sid FROM ChannelSocial WHERE cid=?)", (id,))
     social_name=cur.fetchall()
+    cur.execute("SELECT link FROM ChannelSocial WHERE sid IS NOT NULL and cid=? UNION SELECT handle FROM Social WHERE id IN (SELECT sid from ChannelSocial WHERE cid=?)",(id, id,))
+    working=cur.fetchall()
     cur.execute("SELECT name, pfp FROM Channel WHERE id IN (SELECT primarychannel_id FROM Channel WHERE id=? and id IS NOT primarychannel_id)", (id,))
     channel_2=cur.fetchone()
-    return render_template('channel.html', channel=channel, second_channel=second_channel, channel_member=channel_member, channel_2=channel_2, channel_insta=channel_insta, social_name=social_name)
+    return render_template('channel.html', channel=channel, second_channel=second_channel, channel_member=channel_member, channel_2=channel_2, channel_insta=channel_insta, social_name=social_name, working=working)
 
 @app.route('/member/<int:id>')
 def member(id):
@@ -69,7 +72,13 @@ def member(id):
     social_link=cur.fetchall()
     cur.execute("SELECT handle FROM Social WHERE id IN (SELECT sid FROM SocialMember WHERE mid=?)", (id,))
     member_social=cur.fetchall()
-    return render_template('member.html', member=member, member_channel=member_channel, member_social=member_social, social_link=social_link)
+    cur.execute("SELECT link FROM SocialMember WHERE sid IS NOT NULL and mid=?" ,(id,))
+    channel_fb=cur.fetchall()
+    cur.execute("SELECT handle FROM Social WHERE id IN (SELECT sid FROM SocialMember WHERE mid=?)", (id,))
+    member_s=cur.fetchall()
+    cur.execute("SELECT link FROM SocialMember WHERE sid IS NOT NULL and mid=? UNION SELECT handle FROM Social WHERE id IN (SELECT sid from ChannelSocial WHERE cid=?)",(id, id,))
+    working=cur.fetchall()
+    return render_template('member.html', member=member, member_channel=member_channel, member_social=member_social, social_link=social_link, channel_fb=channel_fb, member_s=member_s)
 
 @app.route('/genre/<int:id>')
 def genre(id):
@@ -95,4 +104,5 @@ def social(id):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 

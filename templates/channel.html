@@ -24,9 +24,25 @@
 <img src="{{channel_2[1]}}"/>
 
 
-{% for item in channel_insta %}
-    <a href="{{item[0]}}" target="_blank">{% for thing in social_name %}
+
+{# channel_insta[{{loop.index}}] #}
+
+
+
+{% for thing in social_name %}
+    <a href="{{channel_insta[loop.index0]}}" target="_blank">
         {{thing[0]}}
+    </a>
+{% endfor %}
+
+{% for thing in working %}
+    <a href="{{thing[0]}}" {{thing[1]}}></a>
+{% endfor %}
+
+
+{% for item in channel_insta %}
+    <a href="{{item[0]}}" target="_blank">{% for item in social_name %}
+        {{item[0]}}
         {% endfor %}
     </a>
 {% endfor %}
