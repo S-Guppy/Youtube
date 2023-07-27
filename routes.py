@@ -3,6 +3,26 @@ import sqlite3
 
 app = Flask(__name__)
 
+
+# Making the fucntions
+def detect_website(social_link, social_name):
+    # The function creates a new list which will store and link (for example) www.instagram.com/norrisnuts to Instagram as well as holding the website's profile picture of your choice.
+    website_order = []
+    for i in range(len(social_link)):
+        try:
+            # This will find the 'www.(something).com' part of the link 
+            website = social_link[i][0].split("/")[2]
+        except Exception as e:
+            print("Make sure there isn't a 'NULL' type value in 'ChannelSocial' so don't leave any part blank in that table.", e)
+            website = None
+        for i in range(len(social_name)):
+            try:
+                if website == social_name[i][2]:
+                    website_order.append([social_name[i][0], social_link[i][0], social_name[i][1]])
+            except Exception as e:
+                print(e)
+    return website_order
+
 # making routes #
 @app.route('/')
 def home():
@@ -51,14 +71,13 @@ def channel(id):
     cur.execute("SELECT name FROM Member WHERE id IN (SELECT mid FROM ChannelMember WHERE cid=?)", (id,))
     channel_member=cur.fetchall()
     cur.execute("SELECT link FROM ChannelSocial WHERE sid IS NOT NULL and cid=?" ,(id,))
-    channel_insta=cur.fetchall()
-    cur.execute("SELECT handle FROM Social WHERE id IN (SELECT sid FROM ChannelSocial WHERE cid=?)", (id,))
+    social_link=cur.fetchall()
+    cur.execute("SELECT handle, pfp, website FROM Social WHERE id IN (SELECT sid FROM ChannelSocial WHERE cid=?)", (id,))
     social_name=cur.fetchall()
-    cur.execute("SELECT link FROM ChannelSocial WHERE sid IS NOT NULL and cid=? UNION SELECT handle FROM Social WHERE id IN (SELECT sid from ChannelSocial WHERE cid=?)",(id, id,))
-    working=cur.fetchall()
+    website_order = detect_website(social_link, social_name)
     cur.execute("SELECT name, pfp FROM Channel WHERE id IN (SELECT primarychannel_id FROM Channel WHERE id=? and id IS NOT primarychannel_id)", (id,))
     channel_2=cur.fetchone()
-    return render_template('channel.html', channel=channel, second_channel=second_channel, channel_member=channel_member, channel_2=channel_2, channel_insta=channel_insta, social_name=social_name, working=working)
+    return render_template('channel.html', website_order=website_order, channel=channel, second_channel=second_channel, channel_member=channel_member, channel_2=channel_2, social_link=social_link, social_name=social_name)
 
 @app.route('/member/<int:id>')
 def member(id):

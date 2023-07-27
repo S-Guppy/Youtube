@@ -27,23 +27,17 @@
 
 {# channel_insta[{{loop.index}}] #}
 
-
-
-{% for thing in social_name %}
-    <a href="{{channel_insta[loop.index0]}}" target="_blank">
-        {{thing[0]}}
+{% for i in range(website_order|length) %}
+    <a href="{{website_order[i][1]}}" target="_blank">
+        {{website_order[i][0]}}
     </a>
 {% endfor %}
 
-{% for thing in working %}
-    <a href="{{thing[0]}}" {{thing[1]}}></a>
-{% endfor %}
-
-
-{% for item in channel_insta %}
-    <a href="{{item[0]}}" target="_blank">{% for item in social_name %}
-        {{item[0]}}
-        {% endfor %}
+<br>
+<!-- Alternative images -->
+{% for i in range(website_order|length) %}
+    <a href="{{website_order[i][1]}}" target="_blank">
+        <img src="{{website_order[i][2]}}" width="100" height="100">
     </a>
 {% endfor %}
 
