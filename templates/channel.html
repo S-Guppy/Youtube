@@ -13,7 +13,6 @@
 {{second_channel[1]}}
 <img src="{{second_channel[2]}}"/>
 
-{# This is how u comment #}
 {% for item in channel_member %}
     {{item[0]}},&nbsp;
 {% endfor %}
@@ -22,10 +21,6 @@
 <img src="{{channel[7]}}"/>
 {{channel_2[0]}}
 <img src="{{channel_2[1]}}"/>
-
-
-
-{# channel_insta[{{loop.index}}] #}
 
 {% for i in range(website_order|length) %}
     <a href="{{website_order[i][1]}}" target="_blank">
