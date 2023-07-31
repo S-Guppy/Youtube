@@ -1,38 +1,40 @@
 {% extends "layout.html" %}
 {% block content %}
 
-{{channel[1]}}
+<p>NAME: {{channel[1]}}</p>
 {{channel[2]}}
 {{channel[3]}}
 {{channel[4]}}
 {{channel[5]}}
 
-<a href="{{channel[6]}}" target="_blank"> Merch</a>
-
 {{second_channel[0]}}
 {{second_channel[1]}}
-<img src="{{second_channel[2]}}"/>
+
+{% if second_channel is not none %}
+    <img src="{{second_channel[2]}}"/>
+{% endif %}
+
+
+<a href="{{channel[6]}}" target="_blank"> Merch</a>
 
 {% for item in channel_member %}
-    {{item[0]}},&nbsp;
+    <a href="/member/{{item[0]}}"> {{item[1]}}</a> &nbsp;
 {% endfor %}
 
+{% if channel is not none %}
+    <img src="{{channel[7]}}"/>
+{% endif %}
 
-<img src="{{channel[7]}}"/>
+
 {{channel_2[0]}}
-<img src="{{channel_2[1]}}"/>
+
+{% if channel_2 is not none %}
+    <img src="{{channel_2[1]}}"/>
+{% endif %}
 
 {% for i in range(website_order|length) %}
     <a href="{{website_order[i][1]}}" target="_blank">
         {{website_order[i][0]}}
-    </a>
-{% endfor %}
-
-<br>
-<!-- Alternative images -->
-{% for i in range(website_order|length) %}
-    <a href="{{website_order[i][1]}}" target="_blank">
-        <img src="{{website_order[i][2]}}" width="100" height="100">
     </a>
 {% endfor %}
 

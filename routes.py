@@ -64,11 +64,13 @@ def all_genres():
 def channel(id):
     conn=sqlite3.connect("channel.db")
     cur=conn.cursor()
+#Grabs all the information for MAIN channels only and stores it in a variable called channel
     cur.execute("SELECT * FROM Channel WHERE id=? and total_video IS NOT NULL",(id,))
     channel=cur.fetchone()
+#This only grabs the info for other channels and stores it in a variable called channel_2
     cur.execute("SELECT name, subscriber, pfp FROM Channel WHERE id=? and total_video IS NULL", (id,))
     second_channel=cur.fetchone()
-    cur.execute("SELECT name FROM Member WHERE id IN (SELECT mid FROM ChannelMember WHERE cid=?)", (id,))
+    cur.execute("SELECT id, name FROM Member WHERE id IN (SELECT mid FROM ChannelMember WHERE cid=?)", (id,))
     channel_member=cur.fetchall()
     cur.execute("SELECT link FROM ChannelSocial WHERE sid IS NOT NULL and cid=?" ,(id,))
     social_link=cur.fetchall()

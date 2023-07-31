@@ -1,76 +1,84 @@
-nav {
+@import url(https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap);
+
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.nav{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 100px;
     display: flex;
-    padding: 2% 6%;
     justify-content: space-between;
-    align-items: center
-  }
-  
-  nav img {
-    width: 300px;
-  }
-  
-  .nav-links {
-    flex: 1;
-    text-align: right;
-  }
-  
-  .nav-links ul li {
+    align-items:center;
+    z-index: 100;
+}
+
+nav h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav h2 a {
     list-style: none;
-    display: inline-block;
-    padding: 8px 12px;
-    position: relative;
-  }
-  
-  .nav-links ul li a {
-    color: #fff;
+    margin-left: 20px;
     text-decoration: none;
-    font-size: 14px;
-  }
-  
-  .nav-links ul li::after {
-    content: '';
-    width: 0%;
-    height: 2px;
-    background: #f44336;
-    display: block;
-    margin: auto;
-    transition: 0.5s;
-  }
-  
-  .nav-links ul li:hover::after {
-    width: 100%;
-  }
-
-
-
-
-body {
-    font-family: "Courier New";
-    background-color : lightblue;
-    color: yellow;
+    padding: 6px 15px;
+    color: #fff;
+    border-radius: 20px;
 }
 
-
-h1 {
-    padding: 50px;
-    width: 100%;
-    background-color: pink;
+nav h2 a:hover {
+    background: #fd718c;
+    color: #fff;
 }
 
-
-h2 {
-    background-color: lightgreen;
+.showcase{
+  position: center;
+  right: 0;
+  width: 100%;
+  min-height: 100vh;
+  padding: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111;
+  transition: 0.5s;
+  z-index: -1;
 }
 
+.showcase.active
+{
+  right: 300px;
+}
+
+.showcase video
+{
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 img {
-    width:  250px;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 50%;
+  width:  250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
+body {
+  background-color :#b4cfb9;
+}
 
-header h1 {
-    background-color: rgb(231, 142, 231);
+body p{
+  color: mediumslateblue;
 }
