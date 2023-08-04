@@ -2,7 +2,7 @@ from flask import Flask, render_template
 import sqlite3
 
 app = Flask(__name__)
-
+hi
 
 # Making the fucntions
 def detect_website(social_link, social_name):
