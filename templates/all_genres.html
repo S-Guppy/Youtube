@@ -1,7 +1,7 @@
 {% extends 'layout.html'%}
 {% block content %}
 
-{% for item in results %}
+{% for item in genre_names %}
     <h2><a href="/genre/{{item[0]}}">{{item[1]}}</a></h2>
     <img src="{{item[2]}}"/>
 {% endfor %}

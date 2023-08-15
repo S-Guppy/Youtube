@@ -1,7 +1,7 @@
 {% extends 'layout.html'%}
 {% block content %}
 
-{% for item in results %}
+{% for item in member_names %}
     <h2><a href="/member/{{item[0]}}">{{item[1]}}</a></h2>
     <img src="{{item[2]}}"/>
 {% endfor %}
