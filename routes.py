@@ -28,7 +28,7 @@ def detect_website(social_link, social_name):
     website_order = []
     for i in range(len(social_link)):
         try:
-            # This will find the 'www.(something).com' part of the link 
+            # This will find the 'www.(something).com' part of the link
             website = social_link[i][0].split("/")[2]
         except Exception as e:
             print("Make sure there isn't a 'NULL' type value in \
@@ -65,7 +65,7 @@ def detect_social(member_sociallink, social_details):
     return social_order
 
 
-# making routes #
+# making routes
 @app.route('/')
 def home():
     return render_template("home.html", title="channel")
@@ -73,13 +73,15 @@ def home():
 
 @app.route('/all_channels')
 def all_channels():
-    channel_names = connect_database("SELECT id, name, pfp FROM Channel", None, 1)
+    channel_names = connect_database("SELECT id,\
+                                     name, pfp FROM Channel", None, 1)
     return render_template("all_channels.html", channel_names=channel_names)
 
 
 @app.route('/all_members')
 def all_members():
-    member_names = connect_database("SELECT id, name, image FROM Member", None, 1)
+    member_names = connect_database("SELECT id, name,\
+                                    image FROM Member", None, 1)
     return render_template("all_members.html", member_names=member_names)
 
 
@@ -97,10 +99,10 @@ def all_genres():
 
 @app.route('/channel/<int:id>')
 def channel(id):
-    # Grabs all the information for MAIN channels only and stores it in a variable called channel
+    # Grabs all the info for MAIN channels only
     channel = connect_database("SELECT * FROM Channel WHERE id=? and \
             total_video IS NOT NULL", (id,), None)
-    # This only grabs the info for other channels and stores it in a variable called channel_2
+    # This only grabs the info for other channels
     merch_link = connect_database("SELECT merch FROM Channel where id=? and \
             merch is NOT NULL", (id,), None)
     other_channels = connect_database("SELECT name, subscriber, pfp FROM \
@@ -111,9 +113,12 @@ def channel(id):
             IS NOT NULL and cid=?", (id,), 1)
     social_name = connect_database("SELECT handle, pfp, website FROM Social \
             WHERE id IN (SELECT sid FROM ChannelSocial WHERE cid=?)", (id,), 1)
-    # "website_order" takes the variables and runs them through the "detect_website" function which was made above - this is so that the links are displayed using the particular social media site name
+    # "website_order" takes the variables and runs them through the
+    # "detect_website" function which was made above - this is so that the
+    # links are displayed using the particular social media site name
     website_order = detect_website(social_link, social_name)
-    # Grabs the name and pfp of the main channel that is associated with the other channels - this is not displayed on the main channels page
+    # Grabs the name and pfp of the main channel that is associated with
+    # other channels - this is not displayed on the main channels page
     channel_2 = connect_database("SELECT name, pfp FROM Channel WHERE id IN \
             (SELECT primarychannel_id FROM Channel \
             WHERE id=? and id IS NOT primarychannel_id)", (id,), None)
@@ -129,7 +134,7 @@ def channel(id):
 
 @app.route('/member/<int:id>')
 def member(id):
-    # Grabs all the information for ALL members and stores it in a variable called member
+    # Grabs all the information for ALL members
     member = connect_database("SELECT * FROM Member where id=?", (id,), None)
     # This query calls for the channels the one member is active on
     member_channel = connect_database("SELECT name, pfp FROM Channel WHERE id \
@@ -148,7 +153,7 @@ def member(id):
 
 @app.route('/genre/<int:id>')
 def genre(id):
-    # Grabs all the information for ALL genres and stores it in a variable called genre
+    # Grabs all the information for ALL genres
     genre = connect_database("SELECT * FROM Genre where id=?", (id,), None)
     genre_channel = connect_database("SELECT name, pfp FROM Channel WHERE id \
             IN (SELECT cid FROM ChannelGenre WHERE gid=?)", (id,), 1)
@@ -158,7 +163,7 @@ def genre(id):
 
 @app.route('/social/<int:id>')
 def social(id):
-    # Grabs all the information for ALL genres and stores it in a variable called genre
+    # Grabs all the information for ALL genres
     social = connect_database("SELECT * FROM Social \
             where id=?", (id,), None)
     social_channel = connect_database("SELECT name, pfp FROM Channel WHERE id \
