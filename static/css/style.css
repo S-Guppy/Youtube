@@ -72,11 +72,12 @@ img {
   width:  250px;
   height: 250px;
   object-fit: cover;
-  border-radius: 50%;
+  /*border-radius: 50%;*/
 }
 
 body {
-  background-color :#b4cfb9;
+  /*background-color :#b4cfb9;*/
+  background-color: white;
 }
 
 body p{

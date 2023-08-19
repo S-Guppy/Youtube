@@ -107,8 +107,9 @@ def channel(id):
             merch is NOT NULL", (id,), None)
     other_channels = connect_database("SELECT name, subscriber, pfp FROM \
             Channel WHERE id=? and total_video IS NULL", (id,), None)
-    channel_member = connect_database("SELECT id, name FROM Member WHERE id \
+    channel_member = connect_database("SELECT id, name, image FROM Member WHERE id \
             IN (SELECT mid FROM ChannelMember WHERE cid=?)", (id,), 1)
+    channel_genre = connect_database("SELECT * FROM Genre WHERE id IN (SELECT gid FROM ChannelGenre WHERE cid=?)", (id,), 1)
     social_link = connect_database("SELECT link FROM ChannelSocial WHERE sid \
             IS NOT NULL and cid=?", (id,), 1)
     social_name = connect_database("SELECT handle, pfp, website FROM Social \
@@ -127,6 +128,7 @@ def channel(id):
                            other_channels=other_channels,
                            channel_member=channel_member,
                            channel_2=channel_2,
+                           channel_genre=channel_genre,
                            social_link=social_link,
                            social_name=social_name,
                            merch_link=merch_link)

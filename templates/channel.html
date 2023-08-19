@@ -18,8 +18,16 @@
 <a href="{{merch_link[0]}}" target="_blank">Merch</a>
 {% endif %}
 
+<br>
 {% for item in channel_member %}
-    <a href="/member/{{item[0]}}"> {{item[1]}}</a> &nbsp;
+    <a href="/member/{{item[0]}}">
+    <img src="{{item[2]}}"/>
+    <figcaption>{{item[1]}}</figcaption>
+    </a> &nbsp;
+{% endfor %}
+
+{% for item in channel_genre %}
+    <a href="/genre/{{item[0]}}"> {{item[1]}}</a> &nbsp;
 {% endfor %}
 
 {% if channel is not none %}
