@@ -107,9 +107,10 @@ def channel(id):
             merch is NOT NULL", (id,), None)
     other_channels = connect_database("SELECT name, subscriber, pfp FROM \
             Channel WHERE id=? and total_video IS NULL", (id,), None)
-    channel_member = connect_database("SELECT id, name, image FROM Member WHERE id \
-            IN (SELECT mid FROM ChannelMember WHERE cid=?)", (id,), 1)
-    channel_genre = connect_database("SELECT * FROM Genre WHERE id IN (SELECT gid FROM ChannelGenre WHERE cid=?)", (id,), 1)
+    channel_member = connect_database("SELECT id, name, image FROM Member \
+            WHERE id IN (SELECT mid FROM ChannelMember WHERE cid=?)", (id,), 1)
+    channel_genre = connect_database("SELECT * FROM Genre WHERE id IN \
+            (SELECT gid FROM ChannelGenre WHERE cid=?)", (id,), 1)
     social_link = connect_database("SELECT link FROM ChannelSocial WHERE sid \
             IS NOT NULL and cid=?", (id,), 1)
     social_name = connect_database("SELECT handle, pfp, website FROM Social \
@@ -139,7 +140,7 @@ def member(id):
     # Grabs all the information for ALL members
     member = connect_database("SELECT * FROM Member where id=?", (id,), None)
     # This query calls for the channels the one member is active on
-    member_channel = connect_database("SELECT name, pfp FROM Channel WHERE id \
+    member_channel = connect_database("SELECT id, name, pfp FROM Channel WHERE id \
             IN (SELECT cid FROM ChannelMember WHERE mid=?)", (id,), 1)
     member_sociallink = connect_database("SELECT link FROM SocialMember WHERE \
             sid IS NOT NULL and mid=?", (id,), 1)
@@ -157,7 +158,7 @@ def member(id):
 def genre(id):
     # Grabs all the information for ALL genres
     genre = connect_database("SELECT * FROM Genre where id=?", (id,), None)
-    genre_channel = connect_database("SELECT name, pfp FROM Channel WHERE id \
+    genre_channel = connect_database("SELECT id, name, pfp FROM Channel WHERE id \
             IN (SELECT cid FROM ChannelGenre WHERE gid=?)", (id,), 1)
     return render_template('genre.html', genre=genre,
                            genre_channel=genre_channel)

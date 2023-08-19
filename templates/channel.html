@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
 
+{% if channel is not none %}
+    <img src="{{channel[7]}}"/>
+{% endif %}
+
 <p>NAME: {{channel[1]}}</p>
 {{channel[2]}}
 {{channel[3]}}
@@ -27,13 +31,11 @@
 {% endfor %}
 
 {% for item in channel_genre %}
-    <a href="/genre/{{item[0]}}"> {{item[1]}}</a> &nbsp;
+    <a href="/genre/{{item[0]}}">
+    <img src="{{item[2]}}"/>
+    <figcaption>{{item[1]}}</figcaption>
+    </a> &nbsp;
 {% endfor %}
-
-{% if channel is not none %}
-    <img src="{{channel[7]}}"/>
-{% endif %}
-
 
 {{channel_2[0]}}
 
@@ -44,6 +46,12 @@
 {% for i in range(website_order|length) %}
     <a href="{{website_order[i][1]}}" target="_blank">
         {{website_order[i][0]}}
+    </a>
+{% endfor %}
+
+{% for i in range(website_order|length) %}
+    <a href="{{website_order[i][1]}}" target="_blank">
+    <img src="{{website_order[i][2]}}">
     </a>
 {% endfor %}
 
