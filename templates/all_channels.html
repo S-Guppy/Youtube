@@ -1,8 +1,10 @@
 {% extends 'layout.html'%}
 {% block content %}
 
+<ul>
 {% for item in channel_names %}
-    <h2><a href="/channel/{{item[0]}}">{{item[1]}}</a></h2>
-    <img class="testing" img src="{{item[2]}}"/>
+    <li class="bigspacing"><h2><a href="/channel/{{item[0]}}">{{item[1]}}<br><img class="testing" img src="{{item[2]}}"/></a></h2></li>
 {% endfor %}
+</ul>
+
 {% endblock %}

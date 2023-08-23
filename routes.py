@@ -97,6 +97,10 @@ def all_genres():
     return render_template("all_genres.html", genre_names=genre_names)
 
 
+@app.errorhandler(404)
+def invalid_route(e):
+
+
 @app.route('/channel/<int:id>')
 def channel(id):
     # Grabs all the info for MAIN channels only

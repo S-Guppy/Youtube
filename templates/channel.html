@@ -23,12 +23,14 @@
 {% endif %}
 
 <br>
+<ul>
 {% for item in channel_member %}
-    <a href="/member/{{item[0]}}">
+    <li class="spacing"><a href="/member/{{item[0]}}">
     <img src="{{item[2]}}"/>
     <figcaption>{{item[1]}}</figcaption>
-    </a> &nbsp;
+    </a> &nbsp;</li>
 {% endfor %}
+</ul>
 
 {% for item in channel_genre %}
     <a href="/genre/{{item[0]}}">
@@ -43,11 +45,12 @@
     <img src="{{channel_2[1]}}"/>
 {% endif %}
 
-{% for i in range(website_order|length) %}
+<!--{% for i in range(website_order|length) %}
     <a href="{{website_order[i][1]}}" target="_blank">
         {{website_order[i][0]}}
     </a>
 {% endfor %}
+-->
 
 {% for i in range(website_order|length) %}
     <a href="{{website_order[i][1]}}" target="_blank">
