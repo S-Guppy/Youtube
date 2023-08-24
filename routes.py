@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, abort
 import sqlite3
 
 app = Flask(__name__)
@@ -99,6 +99,7 @@ def all_genres():
 
 @app.errorhandler(404)
 def invalid_route(e):
+    return render_template("404.html"), 404
 
 
 @app.route('/channel/<int:id>')
@@ -106,6 +107,9 @@ def channel(id):
     # Grabs all the info for MAIN channels only
     channel = connect_database("SELECT * FROM Channel WHERE id=? and \
             total_video IS NOT NULL", (id,), None)
+    if channel is None:
+        # if channel == ("NONE"):
+        return render_template("404.html")
     # This only grabs the info for other channels
     merch_link = connect_database("SELECT merch FROM Channel where id=? and \
             merch is NOT NULL", (id,), None)
