@@ -2,7 +2,9 @@
 {% block content %}
 {{member[1]}}
 {{member[2]}}
+{% if member is not none %}
 <img src="{{member[3]}}"/>
+{% endif %}
 
 <!-- 
 {% for item in member_channel %}

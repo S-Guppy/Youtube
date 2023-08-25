@@ -96,7 +96,8 @@ def all_genres():
     genre_names = connect_database("SELECT * FROM Genre", None, 1)
     return render_template("all_genres.html", genre_names=genre_names)
 
-
+# Learnt how to make 404 error page
+# https://www.youtube.com/watch?v=9l3wwMHFrks&t=10s&ab_channel=Cairocoders
 @app.errorhandler(404)
 def invalid_route(e):
     return render_template("404.html"), 404
@@ -105,11 +106,15 @@ def invalid_route(e):
 @app.route('/channel/<int:id>')
 def channel(id):
     # Grabs all the info for MAIN channels only
+    testing = connect_database("SELECT * FROM Channel WHERE id=?", (id,), None)
+    if testing is None:
+        return render_template("404.html")
     channel = connect_database("SELECT * FROM Channel WHERE id=? and \
             total_video IS NOT NULL", (id,), None)
-    if channel is None:
-        # if channel == ("NONE"):
-        return render_template("404.html")
+    # https://stackoverflow.com/questions/25599923/abort-404-not-working-in-flask-after-request
+    # the link above helped me to write the if statement below
+    #if channel is None:
+    #    return render_template("404.html")
     # This only grabs the info for other channels
     merch_link = connect_database("SELECT merch FROM Channel where id=? and \
             merch is NOT NULL", (id,), None)
@@ -132,7 +137,8 @@ def channel(id):
     channel_2 = connect_database("SELECT name, pfp FROM Channel WHERE id IN \
             (SELECT primarychannel_id FROM Channel \
             WHERE id=? and id IS NOT primarychannel_id)", (id,), None)
-    return render_template('channel.html', website_order=website_order,
+    return render_template('channel.html', testing=testing,
+                           website_order=website_order,
                            channel=channel,
                            other_channels=other_channels,
                            channel_member=channel_member,
@@ -147,6 +153,8 @@ def channel(id):
 def member(id):
     # Grabs all the information for ALL members
     member = connect_database("SELECT * FROM Member where id=?", (id,), None)
+    if member is None:
+        return render_template("404.html")
     # This query calls for the channels the one member is active on
     member_channel = connect_database("SELECT id, name, pfp FROM Channel WHERE id \
             IN (SELECT cid FROM ChannelMember WHERE mid=?)", (id,), 1)
@@ -166,6 +174,8 @@ def member(id):
 def genre(id):
     # Grabs all the information for ALL genres
     genre = connect_database("SELECT * FROM Genre where id=?", (id,), None)
+    if genre is None:
+        return render_template("404.html")
     genre_channel = connect_database("SELECT id, name, pfp FROM Channel WHERE id \
             IN (SELECT cid FROM ChannelGenre WHERE gid=?)", (id,), 1)
     return render_template('genre.html', genre=genre,
@@ -177,6 +187,8 @@ def social(id):
     # Grabs all the information for ALL genres
     social = connect_database("SELECT * FROM Social \
             where id=?", (id,), None)
+    if social is None:
+        return render_template("404.html")
     social_channel = connect_database("SELECT name, pfp FROM Channel WHERE id \
             IN (SELECT cid FROM ChannelSocial WHERE sid=?)", (id,), 1)
     social_link = connect_database("SELECT link FROM ChannelSocial \

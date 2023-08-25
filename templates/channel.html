@@ -1,6 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
 
+{% if testing[4] is not none %}
+    <img src="{{testing[7]}}"/>
+    <p>NAME: {{testing[1]}}</p>
+    {{testing[2]}}
+    {{testing[3]}}
+    {{testing[4]}}
+    {{testing[5]}}
+{% endif %}
+
+
+{% if testing[4] is none %}
+    {{testing[1]}}
+    {{testing[2]}}
+    <img src="{{testing[7]}}"/>
+{% endif %}
+
+
+
 {% if channel is not none %}
     <img src="{{channel[7]}}"/>
 {% endif %}
