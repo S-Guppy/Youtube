@@ -1,39 +1,20 @@
 {% extends "layout.html" %}
 {% block content %}
 
-{% if testing[4] is not none %}
-    <img src="{{testing[7]}}"/>
-    <p>NAME: {{testing[1]}}</p>
-    {{testing[2]}}
-    {{testing[3]}}
-    {{testing[4]}}
-    {{testing[5]}}
-{% endif %}
-
-
-{% if testing[4] is none %}
-    {{testing[1]}}
-    {{testing[2]}}
-    <img src="{{testing[7]}}"/>
-{% endif %}
-
-
-
-{% if channel is not none %}
+{% if channel[4] is not none %}
     <img src="{{channel[7]}}"/>
+    <p>NAME: {{channel[1]}}</p>
+    {{channel[2]}}
+    {{channel[3]}}
+    {{channel[4]}}
+    {{channel[5]}}
 {% endif %}
 
-<p>NAME: {{channel[1]}}</p>
-{{channel[2]}}
-{{channel[3]}}
-{{channel[4]}}
-{{channel[5]}}
 
-{{other_channels[0]}}
-{{other_channels[1]}}
-
-{% if other_channels is not none %}
-    <img src="{{other_channels[2]}}"/>
+{% if channel[4] is none %}
+    {{channel[1]}}
+    {{channel[2]}}
+    <img src="{{channel[7]}}"/>
 {% endif %}
 
 {% if merch_link is not none %}

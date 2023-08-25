@@ -105,21 +105,17 @@ def invalid_route(e):
 
 @app.route('/channel/<int:id>')
 def channel(id):
-    # Grabs all the info for MAIN channels only
-    testing = connect_database("SELECT * FROM Channel WHERE id=?", (id,), None)
-    if testing is None:
+    # Grabs all the info for all channels
+    channel = connect_database("SELECT * FROM Channel WHERE id=?", (id,), None)
+    if channel is None:
         return render_template("404.html")
-    channel = connect_database("SELECT * FROM Channel WHERE id=? and \
-            total_video IS NOT NULL", (id,), None)
     # https://stackoverflow.com/questions/25599923/abort-404-not-working-in-flask-after-request
     # the link above helped me to write the if statement below
-    #if channel is None:
+    # if channel is None:
     #    return render_template("404.html")
     # This only grabs the info for other channels
     merch_link = connect_database("SELECT merch FROM Channel where id=? and \
             merch is NOT NULL", (id,), None)
-    other_channels = connect_database("SELECT name, subscriber, pfp FROM \
-            Channel WHERE id=? and total_video IS NULL", (id,), None)
     channel_member = connect_database("SELECT id, name, image FROM Member \
             WHERE id IN (SELECT mid FROM ChannelMember WHERE cid=?)", (id,), 1)
     channel_genre = connect_database("SELECT * FROM Genre WHERE id IN \
@@ -137,10 +133,8 @@ def channel(id):
     channel_2 = connect_database("SELECT name, pfp FROM Channel WHERE id IN \
             (SELECT primarychannel_id FROM Channel \
             WHERE id=? and id IS NOT primarychannel_id)", (id,), None)
-    return render_template('channel.html', testing=testing,
+    return render_template('channel.html', channel=channel,
                            website_order=website_order,
-                           channel=channel,
-                           other_channels=other_channels,
                            channel_member=channel_member,
                            channel_2=channel_2,
                            channel_genre=channel_genre,

@@ -1,8 +1,10 @@
 {% extends 'layout.html'%}
 {% block content %}
 
-{% for item in member_names %}
-    <h2><a href="/member/{{item[0]}}">{{item[1]}}<br><img src="{{item[2]}}"/></a></h2>
-{% endfor %}
+<ul>
+    {% for item in member_names %}
+        <li class="bigspacing"><h2><a href="/member/{{item[0]}}">{{item[1]}}<br><img class="testing" img src="{{item[2]}}"/></a></h2></li>
+    {% endfor %}
+</ul>
 
 {% endblock %}
