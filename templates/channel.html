@@ -1,6 +1,28 @@
 {% extends "layout.html" %}
 {% block content %}
 
+<div class="numbers">
+    {% if channel[4] is not none %}
+        <img src="{{channel[7]}}"/>
+        <h3>Name:</h3><p>{{channel[1]}}</p>
+        <h3>Subscriber Count: {{channel[2]}}</h3>
+        <h3>Total Views: {{channel[3]}}</h3>
+        <h3>Total Videos: {{channel[4]}}</h3>
+        <h3>Date Joined: {{channel[5]}}</h3>
+    {% endif %}
+</div>
+
+{% if channel[4] is not none %}
+    <img src="{{channel[7]}}"/>
+    <div class="numbers">
+        <h3>Name:</h3><p>{{channel[1]}}</p>
+        <h3>Subscriber Count: {{channel[2]}}</h3>
+        <h3>Total Views: {{channel[3]}}</h3>
+        <h3>Total Videos: {{channel[4]}}</h3>
+        <h3>Date Joined: {{channel[5]}}</h3>
+    </div>
+{% endif %}
+
 {% if channel[4] is not none %}
     <img src="{{channel[7]}}"/>
     <p>NAME: {{channel[1]}}</p>
@@ -9,7 +31,6 @@
     {{channel[4]}}
     {{channel[5]}}
 {% endif %}
-
 
 {% if channel[4] is none %}
     {{channel[1]}}
@@ -31,12 +52,14 @@
 {% endfor %}
 </ul>
 
+<ul>
 {% for item in channel_genre %}
-    <a href="/genre/{{item[0]}}">
+    <li class="spacing"><a href="/genre/{{item[0]}}">
     <img src="{{item[2]}}"/>
     <figcaption>{{item[1]}}</figcaption>
-    </a> &nbsp;
+    </a> &nbsp;</li>
 {% endfor %}
+</ul>
 
 {{channel_2[0]}}
 

@@ -73,14 +73,12 @@ img {
   height: 250px;
   object-fit: cover;
   border-radius: 50%;
+  /*https://www.w3schools.com/howto/howto_css_border_image.asp*/
+  border: 5px solid #000000;
 }
 
 body {
   background-color :#b4cfb9;
-}
-
-body p{
-  color: mediumslateblue;
 }
 
 .testing{
@@ -89,11 +87,27 @@ body p{
 }
 
 .bigspacing{
-  margin-right: 50px;
+  margin-right: 75px;
+}
+
+.bigspacing h2{
+  background-color: #ee97a9;
+  border: 5px solid #555;
+  border-radius: 5%;
+  text-align: center;
 }
 
 .spacing{
   margin: 10px;
+}
+
+.numbers{
+  width: 50%;
+  background-color: tomato;
+  color: white;
+  border: 2px solid black;
+  margin: 20px;
+  padding: 20px;
 }
 
 ul{
