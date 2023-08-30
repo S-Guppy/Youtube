@@ -1,4 +1,4 @@
-from flask import Flask, render_template, abort
+from flask import Flask, render_template
 import sqlite3
 
 app = Flask(__name__)
@@ -10,7 +10,7 @@ def connect_database(statement, id, mode):
     # there are like
     conn = sqlite3.connect("channel.db")
     cur = conn.cursor()
-    if id != None:
+    if id is not None:
         cur.execute(statement, id)
     else:
         cur.execute(statement)
@@ -96,9 +96,10 @@ def all_genres():
     genre_names = connect_database("SELECT * FROM Genre", None, 1)
     return render_template("all_genres.html", genre_names=genre_names)
 
+
+@app.errorhandler(404)
 # Learnt how to make 404 error page
 # https://www.youtube.com/watch?v=9l3wwMHFrks&t=10s&ab_channel=Cairocoders
-@app.errorhandler(404)
 def invalid_route(e):
     return render_template("404.html"), 404
 
@@ -130,8 +131,8 @@ def channel(id):
     website_order = detect_website(social_link, social_name)
     # Grabs the name and pfp of the main channel that is associated with
     # other channels - this is not displayed on the main channels page
-    channel_2 = connect_database("SELECT name, pfp FROM Channel WHERE id IN \
-            (SELECT primarychannel_id FROM Channel \
+    channel_2 = connect_database("SELECT id, name, pfp FROM Channel WHERE id\
+            IN (SELECT primarychannel_id FROM Channel \
             WHERE id=? and id IS NOT primarychannel_id)", (id,), None)
     return render_template('channel.html', channel=channel,
                            website_order=website_order,
@@ -150,8 +151,8 @@ def member(id):
     if member is None:
         return render_template("404.html")
     # This query calls for the channels the one member is active on
-    member_channel = connect_database("SELECT id, name, pfp FROM Channel WHERE id \
-            IN (SELECT cid FROM ChannelMember WHERE mid=?)", (id,), 1)
+    member_channel = connect_database("SELECT id, name, pfp FROM Channel WHERE\
+            id IN (SELECT cid FROM ChannelMember WHERE mid=?)", (id,), 1)
     member_sociallink = connect_database("SELECT link FROM SocialMember WHERE \
             sid IS NOT NULL and mid=?", (id,), 1)
     social_details = connect_database("SELECT handle, pfp, website FROM Social\
@@ -170,8 +171,8 @@ def genre(id):
     genre = connect_database("SELECT * FROM Genre where id=?", (id,), None)
     if genre is None:
         return render_template("404.html")
-    genre_channel = connect_database("SELECT id, name, pfp FROM Channel WHERE id \
-            IN (SELECT cid FROM ChannelGenre WHERE gid=?)", (id,), 1)
+    genre_channel = connect_database("SELECT id, name, pfp FROM Channel WHERE \
+                id IN (SELECT cid FROM ChannelGenre WHERE gid=?)", (id,), 1)
     return render_template('genre.html', genre=genre,
                            genre_channel=genre_channel)
 

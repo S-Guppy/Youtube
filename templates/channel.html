@@ -61,11 +61,18 @@
 {% endfor %}
 </ul>
 
-{{channel_2[0]}}
+{{channel_2[1]}}
 
 {% if channel_2 is not none %}
-    <img src="{{channel_2[1]}}"/>
+    <img src="{{channel_2[2]}}"/>
 {% endif %}
+
+<a href="{{channel_2[0]}}">{{channel_2[1]}}</a>
+
+{% if channel_2 is not none %}
+    <a href="{{channel_2[0]}}"><img scr="{{channel_2[2]}}"/></a>
+{% endif %}
+
 
 <!--{% for i in range(website_order|length) %}
     <a href="{{website_order[i][1]}}" target="_blank">
