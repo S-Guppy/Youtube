@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, abort
 import sqlite3
 
 app = Flask(__name__)
@@ -109,7 +109,7 @@ def channel(id):
     # Grabs all the info for all channels
     channel = connect_database("SELECT * FROM Channel WHERE id=?", (id,), None)
     if channel is None:
-        return render_template("404.html")
+        abort(404)
     # https://stackoverflow.com/questions/25599923/abort-404-not-working-in-flask-after-request
     # the link above helped me to write the if statement below
     # if channel is None:
@@ -149,7 +149,7 @@ def member(id):
     # Grabs all the information for ALL members
     member = connect_database("SELECT * FROM Member where id=?", (id,), None)
     if member is None:
-        return render_template("404.html")
+        abort(404)
     # This query calls for the channels the one member is active on
     member_channel = connect_database("SELECT id, name, pfp FROM Channel WHERE\
             id IN (SELECT cid FROM ChannelMember WHERE mid=?)", (id,), 1)
@@ -170,7 +170,7 @@ def genre(id):
     # Grabs all the information for ALL genres
     genre = connect_database("SELECT * FROM Genre where id=?", (id,), None)
     if genre is None:
-        return render_template("404.html")
+        abort(404)
     genre_channel = connect_database("SELECT id, name, pfp FROM Channel WHERE \
                 id IN (SELECT cid FROM ChannelGenre WHERE gid=?)", (id,), 1)
     return render_template('genre.html', genre=genre,
@@ -183,7 +183,7 @@ def social(id):
     social = connect_database("SELECT * FROM Social \
             where id=?", (id,), None)
     if social is None:
-        return render_template("404.html")
+        abort(404)
     social_channel = connect_database("SELECT name, pfp FROM Channel WHERE id \
             IN (SELECT cid FROM ChannelSocial WHERE sid=?)", (id,), 1)
     social_link = connect_database("SELECT link FROM ChannelSocial \
