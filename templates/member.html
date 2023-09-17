@@ -1,24 +1,50 @@
 {% extends "layout.html" %}
 {% block content %}
-{{member[1]}}
+<!--------------------------------------------------------------->
+<br>
+{% if member[1] is not none %}
+    <img src="{{member[3]}}"/>
+    <div class="details">
+    <p><span>Name: </span>{{member[1]}}</p>
+    <p><span>Nationality </span>{{member[2]}}</p>
+    </div>
+{% endif %}
+
+<!--{{member[1]}}
 {{member[2]}}
 {% if member is not none %}
 <img src="{{member[3]}}"/>
-{% endif %}
+{% endif %}-->
 
+<!--------------------------------------------------------------->
 <!-- 
 {% for item in member_channel %}
     {{item[1]}},&nbsp;
     <img src="{{item[2]}}"/>
 {% endfor %}
 -->
-<br>
+
+<ul>
+    <div class="titles">
+        <h3>Channels</h3>
+    </div>
+    {% for item in member_channel %}
+        <li class="spacing"><a href="/channel/{{item[0]}}">
+        <img class="smallpic" src="{{item[2]}}"/>
+        <figcaption>{{item[1]}}</figcaption>
+        </a> &nbsp;</li>
+    {% endfor %}
+</ul>
+
+<!--<br>
 {% for item in member_channel %}
     <a href="/channel/{{item[0]}}">
     <img src="{{item[2]}}"/>
     <figcaption>{{item[1]}}</figcaption>
     </a> &nbsp;
-{% endfor %}
+{% endfor %}-->
+
+<!--------------------------------------------------------------->
 
 <!-- 
 {% for i in range(social_order|length) %}
@@ -27,11 +53,22 @@
     </a>
 {% endfor %}
 -->
+{% if member_sociallink and social_details is not none %}
+    <div class="titles">
+        <h3>Socials</h3>
+    </div>
+    {% for i in range(social_order|length) %}
+        <a href="{{social_order[i][1]}}" target="_blank">
+        <img class="smallpic"src="{{social_order[i][2]}}">
+        </a>
+{% endfor %}
+{% endif %}
 
-{% for i in range(social_order|length) %}
+
+<!--{% for i in range(social_order|length) %}
     <a href="{{social_order[i][1]}}" target="_blank">
     <img src="{{social_order[i][2]}}">
     </a>
-{% endfor %}
+{% endfor %}-->
 
 {% endblock %}

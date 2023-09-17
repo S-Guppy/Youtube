@@ -188,9 +188,15 @@ def social(id):
             IN (SELECT cid FROM ChannelSocial WHERE sid=?)", (id,), 1)
     social_link = connect_database("SELECT link FROM ChannelSocial \
             WHERE sid=?", (id,), None)
+    social_member = connect_database("SELECT name, image FROM Member WHERE id\
+            IN (SELECT mid FROM SocialMember WHERE sid =?)", (id,), 1)
+    social_memberlink = connect_database("SELECT link FROM SocialMember\
+            WHERE sid=?", (id,), None)
     return render_template('social.html', social=social,
                            social_channel=social_channel,
-                           social_link=social_link)
+                           social_link=social_link,
+                           social_member=social_member,
+                           social_memberlink=social_memberlink)
 
 
 if __name__ == "__main__":

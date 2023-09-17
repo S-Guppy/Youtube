@@ -3,20 +3,18 @@
 
 <br>
 <ul>
-
-{% for item in channel_names %}
-<!-- class = "rows" is how the images and names layout -->
-    <li class="bigspacing"><h2><a href="/channel/{{item[0]}}">{{item[1]}}</h2><br><img class="testing" img src="{{item[2]}}"/></a></li>
-{% endfor %}
+    <div class="centering">
+        {% for item in channel_names %}
+            <li class="names"><h2><a href="/channel/{{item[0]}}">{{item[1]}}</h2><img class="images" img src="{{item[2]}}"/></a></li>
+        {% endfor %}
+    </div>
 </ul>
 
-
-<div class="rows">
+<div class="centering"></div>
+<ul>
     {% for item in channel_names %}
-    <div class="columns">
-        <h2><a href="/channel/{{item[0]}}">{{item[1]}}</h2><br><img class="testing" img src="{{item[2]}}"/></a>
-    </div>
+        <li class="names"><h2><a href="/channel/{{item[0]}}">{{item[1]}}</h2><img class="images" img src="{{item[2]}}"/></a></li>
     {% endfor %}
+</ul>
 </div>
-
 {% endblock %}

@@ -1,20 +1,34 @@
 {% extends "layout.html" %}
 {% block content %}
-{{genre[1]}}
 <img src="{{genre[2]}}"/>
+<div class="details">
+    <p><span>Name:   </span>{{genre[1]}}</p>
+</div>
 
 <!--{% for item in genre_channel %}
     {{item[1]}},&nbsp;
     <img src="{{item[2]}}"/>
 {% endfor %}
 -->
+<ul>
+    <div class="titles">
+        <h3>Channels</h3>
+    </div>
+    {% for item in genre_channel %}
+        <li class="spacing"><a href="/channel/{{item[0]}}">
+        <img class="smallpic" src="{{item[2]}}"/>
+        <figcaption>{{item[1]}}</figcaption>
+        </a> &nbsp;</li>
+    {% endfor %}
+    </ul>
 
+<!--  
 <br>
 {% for item in genre_channel %}
     <a href="/channel/{{item[0]}}">
     <img src="{{item[2]}}"/>
     <figcaption>{{item[1]}}</figcaption>
     </a> &nbsp;
-{% endfor %}
+{% endfor %}--> 
 
 {% endblock %}

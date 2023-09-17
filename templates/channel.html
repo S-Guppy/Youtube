@@ -1,90 +1,88 @@
 {% extends "layout.html" %}
 {% block content %}
-
-<div class="numbers">
-    {% if channel[4] is not none %}
-        <img src="{{channel[7]}}"/>
-        <h3>Name:</h3><p>{{channel[1]}}</p>
-        <h3>Subscriber Count: {{channel[2]}}</h3>
-        <h3>Total Views: {{channel[3]}}</h3>
-        <h3>Total Videos: {{channel[4]}}</h3>
-        <h3>Date Joined: {{channel[5]}}</h3>
-    {% endif %}
-</div>
-
+<br>
 {% if channel[4] is not none %}
     <img src="{{channel[7]}}"/>
-    <div class="numbers">
-        <h3>Name:</h3><p>{{channel[1]}}</p>
-        <h3>Subscriber Count: {{channel[2]}}</h3>
-        <h3>Total Views: {{channel[3]}}</h3>
-        <h3>Total Videos: {{channel[4]}}</h3>
-        <h3>Date Joined: {{channel[5]}}</h3>
+    <div class="details">
+        <!--https://stackoverflow.com/questions/74254589/html-css-h3-and-p-tag-on-one-row#:~:text=Both%20h3%20and%20p%20are,or%20display%3A%20inline%2Dblock%20.-->
+        <!--this is how to have different sized fonts on the same line-->
+        <p><span>Name: </span>{{channel[1]}}</p>
+        <p><span>Subscriber Count: </span>{{channel[2]}}</p>
+        <p><span>Total Views: </span>{{channel[3]}}</p>
+        <p><span>Total Videos: </span>{{channel[4]}}</p>
+        <p><span>Date Joined: </span>{{channel[5]}}</p>
     </div>
 {% endif %}
 
-{% if channel[4] is not none %}
-    <img src="{{channel[7]}}"/>
-    <p>NAME: {{channel[1]}}</p>
-    {{channel[2]}}
-    {{channel[3]}}
-    {{channel[4]}}
-    {{channel[5]}}
-{% endif %}
-
+<!---------------------------------------------------------->
 {% if channel[4] is none %}
-    {{channel[1]}}
-    {{channel[2]}}
     <img src="{{channel[7]}}"/>
+    <div class="details">
+        <p><span>Name: </span>{{channel[1]}}</p>
+        <p><span>Subscriber Count: </span>{{channel[2]}}</p>
+    </div>
 {% endif %}
-
-{% if merch_link is not none %}
-<a href="{{merch_link[0]}}" target="_blank">Merch</a>
-{% endif %}
-
 <br>
+
+<!---------------------------------------------------------->
+{% if merch_link is not none %}
+    <div class="merch_details">
+        <h3>Merchandise</h3>
+    </div>
+    <a href="{{merch_link[0]}}" target="_blank" class="merchlink"><p><span>Merch Available at: </span>{{merch_link[0]}}</p></a>
+{% endif %}
+
+<!---------------------------------------------------------->
 <ul>
+<div class="titles">
+    <h3>Members</h3>
+</div>
 {% for item in channel_member %}
     <li class="spacing"><a href="/member/{{item[0]}}">
-    <img src="{{item[2]}}"/>
+    <img class="smallpic" src="{{item[2]}}"/>
     <figcaption>{{item[1]}}</figcaption>
     </a> &nbsp;</li>
 {% endfor %}
 </ul>
 
+<!---------------------------------------------------------->
 <ul>
+<div class="titles">
+    <h3>Genres</h3>
+</div>
 {% for item in channel_genre %}
     <li class="spacing"><a href="/genre/{{item[0]}}">
-    <img src="{{item[2]}}"/>
+    <img class="smallpic" src="{{item[2]}}"/>
     <figcaption>{{item[1]}}</figcaption>
     </a> &nbsp;</li>
 {% endfor %}
 </ul>
 
-{{channel_2[1]}}
-
+<!---------------------------------------------------------->
 {% if channel_2 is not none %}
-    <img src="{{channel_2[2]}}"/>
+    <div class="titles">
+        <h3>Main Channel</h3>
+    </div>
+    <a href="{{channel_2[0]}}">
+    <img class="smallpic" src="{{channel_2[2]}}"/>{{channel_2[1]}}
+    </a>
 {% endif %}
 
-<a href="{{channel_2[0]}}">{{channel_2[1]}}</a>
-
-{% if channel_2 is not none %}
-    <a href="{{channel_2[0]}}"><img scr="{{channel_2[2]}}"/></a>
-{% endif %}
-
-
+<!---------------------------------------------------------->
 <!--{% for i in range(website_order|length) %}
     <a href="{{website_order[i][1]}}" target="_blank">
         {{website_order[i][0]}}
     </a>
-{% endfor %}
--->
+{% endfor %} -->
 
-{% for i in range(website_order|length) %}
-    <a href="{{website_order[i][1]}}" target="_blank">
-    <img src="{{website_order[i][2]}}">
-    </a>
+{% if social_link and social_name is not none %}
+    <div class="titles">
+        <h3>Socials</h3>
+    </div>
+    {% for i in range(website_order|length) %}
+        <a href="{{website_order[i][1]}}" target="_blank">
+        <img class="smallpic"src="{{website_order[i][2]}}">
+        </a>
 {% endfor %}
-
+{% endif %}
 {% endblock %}

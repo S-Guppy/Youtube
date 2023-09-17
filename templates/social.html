@@ -1,11 +1,36 @@
 {% extends "layout.html" %}
 {% block content %}
-{{social[1]}}
 <img src="{{social[2]}}"/>
-
-{% for item in social_channel %}
+<div class="details">
+    <p><span>Name:   </span>{{social[1]}}</p>
+</div>
+<!--{% for item in social_channel %}
     <img src="{{item[1]}}"/>
     <a href="{{social_link[0]}}" target="_blank"> {{item[0]}}</a>
-{% endfor %}
+{% endfor %}-->
+
+<ul>
+    <div class="titles">
+        <h3>Channels</h3>
+    </div>
+    {% for item in social_channel %}
+        <li class="spacing"><a href="{{social_link[0]}}" target="_blank">
+        <img class="smallpic" src="{{item[1]}}"/>
+        <figcaption>{{item[0]}}</figcaption>
+        </a> &nbsp;</li>
+    {% endfor %}
+</ul>
+
+<ul>
+    <div class="titles">
+        <h3>YuTubers</h3>
+    </div>
+    {% for item in social_member %}
+        <li class="spacing"><a href="{{social_memberlink[0]}}" target="_blank">
+        <img class="smallpic" src="{{item[1]}}"/>
+        <figcaption>{{item[0]}}</figcaption>
+        </a> &nbsp;</li>
+    {% endfor %}
+</ul>
 
 {% endblock %}
