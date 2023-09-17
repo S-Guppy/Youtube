@@ -1,5 +1,14 @@
-<br/>
-<center>
-    <hr>404 Error</h1>
-    <p>Page not found... try again</p>
-</center>
+{% extends "layout.html" %}
+{% block content %}
+<!--https://codepen.io/raichutd/pen/JjmKjbP?editors=1100-->
+<div id='oopss'>
+    <div id='error-text'>
+        <img src="https://cdn.rawgit.com/ahmedhosna95/upload/1731955f/sad404.svg" alt="404">
+        <span>404 PAGE</span>
+        <p class="p-a">
+           . The page you were looking for does not exist</p>
+        <!--https://www.w3schools.com/jsref/met_his_back.asp-->
+        <button class="back" onclick="history.back()">Go Back</button>
+    </div>
+</div>
+{% endblock %}
