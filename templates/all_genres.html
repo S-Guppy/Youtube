@@ -1,11 +1,16 @@
 {% extends 'layout.html'%}
 {% block content %}
+
+<br>
+<h2 class = "home-title">GENRES</h2>
 <br>
 <ul>
+<div class="centering">
     {% for item in genre_names %}
+    <!--The line of code below displays the name and images of the genres and links them through the id ({{item[0]}})-->
         <li class="names"><h2><a href="/genre/{{item[0]}}">{{item[1]}}</h2><img class="images" img src="{{item[2]}}"/></a></li>
     {% endfor %}
+    </div>
 </ul>
-
 
 {% endblock %}

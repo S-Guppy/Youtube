@@ -7,14 +7,19 @@ app = Flask(__name__)
 
 
 def connect_database(statement, id, mode):
-    # there are like
+    # there are 3 variables in this function
+    # the function runs a query and stores the result as a statement
     conn = sqlite3.connect("channel.db")
     cur = conn.cursor()
     if id is not None:
         cur.execute(statement, id)
+        # for pages where the id changes(chosen by the user)
+    # the 2nd variable is what is inputed into the query when the function runs
     else:
         cur.execute(statement)
     if mode == 1:
+        # if the 3rd variable is a 1 - this means many results are returned and
+        # fetchall needs to be run
         results = cur.fetchall()
     else:
         results = cur.fetchone()
@@ -24,7 +29,7 @@ def connect_database(statement, id, mode):
 def detect_website(social_link, social_name):
     # The function creates a new list which will store and link
     # (for example) www.instagram.com/norrisnuts to Instagram as well as
-    # holding the website's profile picture of your choice.
+    # holding the website's profile picture.
     website_order = []
     for i in range(len(social_link)):
         try:

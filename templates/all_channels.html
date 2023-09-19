@@ -2,19 +2,16 @@
 {% block content %}
 
 <br>
+<h2 class = "home-title">CHANNELS</h2>
+<br>
 <ul>
-    <div class="centering">
+<!--The 'centering' class just allowed me to center all the data in the between the page-->
+<div class="centering">
         {% for item in channel_names %}
+        <!--The line of code below displays the name and images of the channels and links them to the page with that certain id ({{item[0]}})-->
             <li class="names"><h2><a href="/channel/{{item[0]}}">{{item[1]}}</h2><img class="images" img src="{{item[2]}}"/></a></li>
         {% endfor %}
     </div>
-</ul>
+</ul>    
 
-<div class="centering">
-<ul>
-    {% for item in channel_names %}
-        <li class="names"><h2><a href="/channel/{{item[0]}}">{{item[1]}}</h2><img class="images" img src="{{item[2]}}"/></a></li>
-    {% endfor %}
-</ul>
-</div>
 {% endblock %}

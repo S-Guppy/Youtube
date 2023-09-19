@@ -1,10 +1,15 @@
 {% extends 'layout.html'%}
 {% block content %}
+
+<br>
+<h2 class = "home-title">SOCIALS</h2>
 <br>
 <ul>
+<div class="centering">
     {% for item in social_names %}
         <li class="names"><h2><a href="/social/{{item[0]}}">{{item[1]}}</h2><br><img class="images" img src="{{item[2]}}"/></a></li>
     {% endfor %}
+    </div>
 </ul>
 
 {% endblock %}
