@@ -5,9 +5,10 @@
 <h2 class = "home-title">SOCIALS</h2>
 <br>
 <ul>
-<div class="centering">
+<div class="wrapper">
     {% for item in social_names %}
-        <li class="names"><h2><a href="/social/{{item[0]}}">{{item[1]}}</h2><br><img class="images" img src="{{item[2]}}"/></a></li>
+    <!--The line of code below displays the name and images of the socials and links them through the id ({{item[0]}})-->
+        <li class="names"><h2><a href="/social/{{item[0]}}">{{item[1]}}</h2><br><img src="{{item[2]}}"/></a></li>
     {% endfor %}
     </div>
 </ul>

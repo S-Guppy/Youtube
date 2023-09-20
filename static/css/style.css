@@ -1,34 +1,61 @@
 @import url(https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap); 
-
+/*Global*/
 *
 {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-main{
-  margin-left: 30px;
+main {
+  margin-left: 15px;
   margin-right: 15px;
 }
 
-.header {
-  padding: 60px;
-  text-align: center;
-  background: #1abc9c;
-  color: white;
-  font-size: 30px;
+body {
+  background-color: #fcf6e8;
 }
 
-.centering{
+.banner {
+  position: center;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111;
+  transition: 0.5s;
+  z-index: -1;
+}
+
+.banner video {
+  left: 0;
+  width: 100%;
+  display: block;
+  height: 300px;
+  /*https://www.geeksforgeeks.org/how-to-auto-resize-an-image-to-fit-a-div-container-using-css/*/
+  /*understanding of object-fit*/
+  object-fit: cover;
+}
+
+/*Channels/Members/Socials/Genres pages*/
+/*The wrapper div takes all the content on the pages above (html files)*/
+.wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
 
-.topnav img{
+.home-title {
+  font-family: 'heathergreen-regular', sans-serif;
+  font-size: 10vh;
+  margin-bottom: 0;
+  text-decoration:underline;
+}
+
+/*Navigation bar*/
+.topnav img {
   float: left;
   width: 6%;
   height: 4%;
@@ -36,18 +63,19 @@ main{
   box-shadow: 0px 0px 0px;
   margin-right: 2%;
 }
+
 /*https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_topnav*/
 .topnav {
   overflow: hidden;
-  /*background-color: #f9e7be;*/
+  /* Add a background colour to the top navigation */
   background-color: #fff300;
 }
 
+/* Style the links inside the navigation bar */
 .topnav a {
   float: left;
   display: block;
   color: black;
-  /*color: #f2f2f2;*/
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -60,10 +88,14 @@ main{
   color: black;
 }
 
+/* Hide the link that should open and close the topnav on small screens */
 .topnav .icon {
   display: none;
 }
 
+/*Navigation bar on a smaller screen with the hamburger icon*/
+/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. 
+This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
 @media screen and (max-width: 750px) {
   .topnav a:not(:first-child) {display: none;}
   .topnav a.icon {
@@ -89,25 +121,21 @@ main{
 /*To get different coloured links*/
 /*https://www.w3schools.com/css/tryit.asp?filename=trycss_link*/
 
-
 /* unvisited link */
-a:link{
+a:link {
   text-decoration: none;
   color: black;
 }
 
-
 /* visited link */
-a:visited{
+a:visited { 
   color:black;
 }
 
-
-/* mouse over link */
+/* mouse over link (hover effect)*/
 a:hover {
   color: #1abc9c;
 }
-
 
 /* selected link */
 a:active {
@@ -115,13 +143,10 @@ a:active {
   ;
 }
 
-
-.showcase{
+/*Body section for the home page with the mp4 file*/
+.showcase {
   position: center;
   right: 0;
-  width: 100%;
-  min-height: 100vh;
-  padding: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -130,25 +155,14 @@ a:active {
   z-index: -1;
 }
 
-.showcase.active
-{
-  right: 300px;
-}
-
-.showcase video
-{
-  position: absolute;
+.showcase video {
   left: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
+  display: block;
   object-fit: cover;
 }
-
-body {
-  /*background-color :#b4cfb9;*/
-  background-color: #fcf6e8;
-}
-
+/*Basic CSS for all images on the site with the img tag*/
 img {
   padding: 5px;
   line-height: 0;
@@ -158,45 +172,45 @@ img {
   border-radius: 50%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   /*https://www.w3schools.com/howto/howto_css_border_image.asp*/
-  /*border: 5px solid #000000;*/
 }
 
-.images{
-  width:  250px;
-  height: 250px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+a:hover img {
+  opacity: .5
 }
 
-.names{
+
+/*Individual Pages*/
+/*Class name for the names on displayed above the images on the main nav pages*/
+.names {
   margin-right: 75px;
   margin-bottom: 50px;
   justify-content: space-between;
 }
 
-.names h2{
+.names h2 {
   border: 2px black;
   border-radius: 5%;
   text-align: center;
 }
 
-.spacing{
+.spacing {
   margin: 10px;
 }
 
-ul{
+ul {
   list-style-type: none;
   overflow: hidden;
 }
 
-ul li{
+ul li {
   float: left;
 }
 
-figcaption{
+figcaption {
   text-align: center;
 }
 
-.details{
+.details {
   /*https://stackoverflow.com/questions/17989535/div-next-to-image - taught me how to inline block (to have div and image next to each other)*/
   display: inline-block;
   width: 25%;
@@ -212,7 +226,7 @@ span {
   font-weight: bold;
 }
 
-.merch_details{
+.merch_details {
   width: 25%;
   background-color: #1abc9c;
   color: #fcf6e8;
@@ -223,7 +237,7 @@ span {
   padding: 10px;
 }
 
-.titles{
+.titles {
   width: 100%;
   background-color: #1abc9c;
   color: #fcf6e8;
@@ -234,7 +248,7 @@ span {
   padding: 10px;
 }
 
-.smallpic{
+.smallpic {
   width: 150px;
   height: 150px;
 }
@@ -293,17 +307,8 @@ span {
   box-shadow: 0 35px 90px 4px rgba(0, 0, 0, 0.3), inset 0px 0 0 3px #000;
 }
 
+/*404 page for a smaller screen with smaller font*/
 @media screen and (max-width: 700px) {
-  #oopss {
-    background: linear-gradient(-45deg, #1abc9c, #1abc9c);
-    position: fixed;
-    left: 0px;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    line-height: 1.5em;
-    z-index: 9999;
-  }
   #oopss #error-text {
     font-size: 20px;
     display: flex;
@@ -313,54 +318,4 @@ span {
     color: #000;
     direction: rtl;
   }
-  #oopss #error-text img {
-    margin: 85px auto 20px;
-    height: 342px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 0px 0px;
-  }
-  #oopss #error-text span {
-    position: relative;
-    font-size: 3.3em;
-    font-weight: 900;
-    margin-bottom: 50px;
-  }
-  #oopss #error-text p.p-a {
-    font-size: 19px;
-    margin: 30px 0 15px 0;
-  }
-  #oopss #error-text .back {
-    background: #fff;
-    color: #000;
-    font-size: 30px;
-    text-decoration: none;
-    margin: 2em auto 0;
-    padding: .7em 2em;
-    border-radius: 500px;
-    box-shadow: 0 20px 70px 4px rgba(0, 0, 0, 0.1), inset 7px 33px 0 0px #fff300;
-    font-weight: 900;
-    transition: all 300ms ease;
-  }
-  #oopss #error-text .back:hover {
-    -webkit-transform: translateY(-13px);
-            transform: translateY(-13px);
-    box-shadow: 0 35px 90px 4px rgba(0, 0, 0, 0.3), inset 0px 0 0 3px #000;
-  }
-}
-
-
-.toptrial{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 0vw;
-}
-
-.home-title{
-  font-family: 'heathergreen-regular', sans-serif;
-  font-size: 10vh;
-  margin-bottom: 0;
-  text-decoration:underline;
-}
-
-a:hover img {
-  opacity: .5
 }

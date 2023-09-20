@@ -5,10 +5,10 @@
 <h2 class = "home-title">MEMBERS</h2>
 <br>
 <ul>
-<div class="centering">
+<div class="wrapper">
     {% for item in member_names %}
     <!--The line of code below displays the name and images of the members/YouTubers and links them through the id ({{item[0]}})-->
-        <li class="names"><h2><a href="/member/{{item[0]}}">{{item[1]}}</h2><img class="images" img src="{{item[2]}}"/></a></li>
+        <li class="names"><h2><a href="/member/{{item[0]}}">{{item[1]}}</h2><img src="{{item[2]}}"/></a></li>
     {% endfor %}
     </div>
 </ul>
